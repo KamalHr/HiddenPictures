@@ -1,0 +1,23 @@
+<span *ngIf="!pictures.length">Please Choose an album first</span>
+<div class="row center-align">
+	<ul>
+		<li *ngFor="let picture of pictures | paginate: { itemsPerPage: 8, currentPage: page }">
+			<input type="checkbox" [attr.id]="'pic' + picture.id" [(ngModel)]="picture.checked"/>
+	    	<label [attr.for]="'pic' + picture.id">
+	    		<img [src]="picture.images[0].source">
+	    	</label>
+		</li>
+	</ul>
+	<div class="center-align">
+	    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+	</div>
+	<br />
+	<div class="row center-align">
+		<button class="waves-effect waves-black btn-flat">
+			<i class="material-icons right">delete</i>Reset
+		</button>
+		<button (click)="upload()" class="waves-effect waves-red btn-flat">
+			<i class="material-icons right">send</i>Send
+		</button>
+	</div>
+</div>

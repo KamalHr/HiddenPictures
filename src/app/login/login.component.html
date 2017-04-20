@@ -1,0 +1,69 @@
+<div class="wrapper">
+	<app-navbar></app-navbar>
+	<main>
+		<div class="row center-align headline grey-text">
+			Hidden Pictures
+		</div>
+		<div class="row valign-wrapper">
+	        <div class="col s12 m8 offset-m2">
+	            <div class="card-panel white z-depth-4">
+		          	<span class="black-text">
+		          		<div class="row match-my-cols">
+		          			<div class="col m7 coming disable">
+		          				<div class="row black-text title center-align">
+		          					Sign-in using User/Pass
+		          				</div>
+		          				<form class="">
+		          					<div class="row">
+                                        <div class="input-field col s12 m10 offset-m1 center-align">
+                                            <input id="title" type="email" name="username" [(ngModel)]="user.username" disabled>
+                                            <label for="title">Email</label>
+                                        </div>
+                                        <div class="input-field col s12 m10 offset-m1">
+                                            <input id="title" type="password" name="password" [(ngModel)]="user.password" disabled>
+                                            <label for="title">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m12 center-align">
+                                            <button class="btn btn-outlined" type="submit" disabled>Sign In
+                                                <i class="fa fa-send right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+		          				</form>
+		          				<span class="soon">Coming Soon</span>
+		          			</div>
+		          			<form class="col m5 second">
+		          				<div class="row title center-align">
+		          					or Using social media
+		          				</div>
+		          				<br />
+		          				<div class="row">
+                                    <div class="col s12 m10 offset-m1">
+                                        <button class="col s12 btn-large waves-effect waves-light indigo darken-2" (click)="signIn()">Facebook
+                                            <i class="fa fa-facebook right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row center-align">
+                                	OR
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m10 offset-m1">
+                                        <button class="col s12 btn-large waves-effect waves-light red darken-1">Google+
+                                            <i class="fa fa-twitter right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+		          			</form>
+		          		</div>
+		          	</span>
+		        </div>
+	        </div>
+	    </div>
+	</main>
+	<footer>
+		
+	</footer>
+</div>

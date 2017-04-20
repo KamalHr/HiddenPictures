@@ -1,0 +1,36 @@
+.sidebar {
+    position: fixed;
+    //border: 1px solid black;
+    overflow: auto !important;
+    height: 90%;
+}
+.sidebar_right {
+    position: fixed;
+    float: left;
+    //border: 1px solid black;
+    overflow: auto !important;
+    height: 90%;
+}
+.pic-panel{
+    min-height: 90%;
+}
+.alb-panel {
+    padding: 0px !important;
+    padding-bottom: 0px !important;
+    box-sizing: content-box;
+    margin: 0px !important;
+    padding-left: 0px !important;
+}
+.offset {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.portrait-crop{
+    display: inline-block;
+    height: 215px;
+    //width: 50%;
+    overflow: hidden;
+}
+.portrait-crop a img{
+    width: 100%;
+}
