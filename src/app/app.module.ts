@@ -15,17 +15,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AlbumsComponent } from './albums/albums.component';
 import {AuthService} from './auth.service';
 import { PhotosComponent } from './photos/photos.component';
-import { AlphabetSortPipePipe } from './alphabet-sort-pipe.pipe'
+import { AlphabetSortPipePipe } from './alphabet-sort-pipe.pipe';
+import { NoAlbumComponent } from './no-album/no-album.component'
 /*******************************************
-** Firebase Configuration from the consol **
+** Firebase Configuration from the console **
 *******************************************/
 export const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: ""
+    /** Your Firebase Project configurations **/
 };
 const ROUTES : Routes = [
     {
@@ -41,6 +37,10 @@ const ROUTES : Routes = [
         path: 'Accounts/Albums',
         component: AlbumsComponent,
         children : [
+            {
+                path: '',
+                component: NoAlbumComponent
+            },
             {
                 path: ':id',
                 component: PhotosComponent
@@ -60,7 +60,8 @@ const ROUTES : Routes = [
     NavbarComponent,
     AlbumsComponent,
     PhotosComponent,
-    AlphabetSortPipePipe
+    AlphabetSortPipePipe,
+    NoAlbumComponent
   ],
   imports: [
     BrowserModule,

@@ -1,22 +1,40 @@
 <app-navbar></app-navbar>
 <main class="wrapper grey lighten-3">
 	<div class="row" style="padding-top: 20px;">
-		<div class="col m4 s3 sidebar grey lighten-3 white-text" style="padding: auto !important;">
-			<div class="row offset">
-				<div class="col m6" *ngFor="let album of (albums | alphabetSortPipe)">
-					<div class="card hoverable">
-        				<div class="card-image">
-							<a [routerLink]="[album.id]">
-								<img [src]="album.cover_photo.images[2].source" width="150" height="150">
-							</a>
-							<a class="btn-floating halfway-fab waves-effect waves-light blue center-align">{{album.count}}</a>
-						</div>
-						<div class="card-content" style="padding: 0px !important; font-weight: bold;">
-				          	<p class="black-text truncate">{{album.name}}</p>
-				        </div>
+		<div [ngClass]="{'hidden': isLoading}" class="col m4 s3 sidebar grey lighten-3 white-text" style="padding: auto !important;">
+			<div *ngIf="isLoading; else Albums" class="row center-align">
+				<div class="preloader-wrapper big active">
+					<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+							<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+							<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+					    	<div class="circle"></div>
+					  	</div>
 					</div>
 				</div>
 			</div>
+			<ng-template #Albums>
+				<div class="row offset">
+					<div class="col m6" *ngFor="let album of (albums | alphabetSortPipe)">
+						<div class="card hoverable">
+	        				<div class="card-image">
+								<a [routerLink]="[album.id]">
+									<img [src]="album.cover_photo.images[2].source" width="150" height="150">
+								</a>
+								<a class="btn-floating halfway-fab waves-effect waves-light blue center-align">{{album.count}}</a>
+							</div>
+							<div class="card-content" style="padding: 0px !important; font-weight: bold;">
+					          	<p class="black-text truncate">{{album.name}}</p>
+					        </div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+			
 		</div>
 		<div class="col m8 offset-m4 sidebar_right grey lighten-3">
 			<div class="row">

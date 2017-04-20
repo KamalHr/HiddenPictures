@@ -11,16 +11,21 @@ declare var Materialize:any;
   styleUrls: ['./albums.component.css']
 })
 export class AlbumsComponent implements OnInit {
-    open : Boolean = true;
+    isLoading : Boolean = false;
  	profile : any;
  	albums = [];
+
   	constructor(private _auth: AuthService, private _router: Router, private Fb: FacebookService) {
   		
   	}
 	ngOnInit() {
+        this.isLoading = true;
   		this._auth.getAlbums()
         .then((res) => {
             this.albums = res.data;
+            setTimeout(() => {
+                this.isLoading = false;
+            },4000);
         })
         .catch((err) => {
             console.log(err);

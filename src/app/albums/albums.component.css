@@ -4,6 +4,10 @@
     overflow: auto !important;
     height: 90%;
 }
+.hidden {
+    filter: blur(5);
+    filter: opacity(0.8);
+}
 .sidebar_right {
     position: fixed;
     float: left;

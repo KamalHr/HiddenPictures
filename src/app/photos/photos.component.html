@@ -1,5 +1,19 @@
-<span *ngIf="!pictures.length">Please Choose an album first</span>
-<div class="row center-align">
+<div *ngIf="isLoading" class="row center-align">
+	<div class="preloader-wrapper big active">
+		<div class="spinner-layer spinner-blue-only">
+				<div class="circle-clipper left">
+				<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+				<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+		    	<div class="circle"></div>
+		  	</div>
+		</div>
+	</div>
+</div>
+<div *ngIf="!isLoading" class="row center-align">
 	<ul>
 		<li *ngFor="let picture of pictures | paginate: { itemsPerPage: 8, currentPage: page }">
 			<input type="checkbox" [attr.id]="'pic' + picture.id" [(ngModel)]="picture.checked"/>

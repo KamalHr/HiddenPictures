@@ -20,6 +20,7 @@ export class PhotosComponent implements OnInit {
     that :PhotosComponent = this;
     profile;
     uploadProgress = 0;
+    isLoading = false;
   	constructor(private _router: Router,
                 private activatedRoute: ActivatedRoute, 
                 private auth: AuthService,
@@ -32,6 +33,7 @@ export class PhotosComponent implements OnInit {
   		this.activatedRoute.params.subscribe((params: Params) => {
             this.pictures = [];
         	this.albumId = params['id'];
+            this.isLoading = true;
         	this.auth.loadMore(this.albumId,'',this.pictures)
             .then((res) => {
                 var pictures = res;
@@ -39,6 +41,10 @@ export class PhotosComponent implements OnInit {
                     pictures[i].checked = false;
                 }
                 this.pictures = pictures;
+                setTimeout(()=>{
+                    this.isLoading = false;
+                },2000);
+                
         	})
             .catch((err) => {
               console.log(err);
