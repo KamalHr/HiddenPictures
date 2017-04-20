@@ -25,7 +25,7 @@ export class AlbumsComponent implements OnInit {
             this.albums = res.data;
             setTimeout(() => {
                 this.isLoading = false;
-            },4000);
+            },1000);
         })
         .catch((err) => {
             console.log(err);

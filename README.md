@@ -1,6 +1,6 @@
 # Hidden Pictures
 
-A Web application to export pictures inside your Facebook Albums, into a Firebase Project's Storage
+An Angular 4 Web application to export pictures inside your Facebook Albums, into a Firebase Project's Storage.
 
 ## Development server
 

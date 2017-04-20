@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule, Routes, CanActivate} from '@angular/router';
-import { FacebookService } from 'ng2-facebook-sdk';
-import { FacebookModule } from 'ng2-facebook-sdk';
+import { FacebookService, FacebookModule} from 'ng2-facebook-sdk';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AngularFireModule } from 'angularfire2';
 
@@ -21,7 +20,12 @@ import { NoAlbumComponent } from './no-album/no-album.component'
 ** Firebase Configuration from the console **
 *******************************************/
 export const firebaseConfig = {
-    /** Your Firebase Project configurations **/
+    apiKey: "AIzaSyD9Jvp7yJilnP_Lt-a_Exc4Eawaf69Q2Ak",
+    authDomain: "newapp-ce700.firebaseapp.com",
+    databaseURL: "https://newapp-ce700.firebaseio.com",
+    projectId: "newapp-ce700",
+    storageBucket: "newapp-ce700.appspot.com",
+    messagingSenderId: "132886190010"
 };
 const ROUTES : Routes = [
     {

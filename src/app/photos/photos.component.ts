@@ -2,15 +2,13 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Inject } from '@angu
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {AuthService} from '../auth.service'
 import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
-import { SweetAlertService } from 'ng2-sweetalert2';
 declare var swal: any;
 import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.css'],
-  providers: [SweetAlertService]
+  styleUrls: ['./photos.component.css']
 })
 export class PhotosComponent implements OnInit {
 	albumId : any;
