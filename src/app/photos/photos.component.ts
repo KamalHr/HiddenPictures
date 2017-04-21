@@ -18,7 +18,10 @@ export class PhotosComponent implements OnInit {
     that: PhotosComponent = this;
     profile;
     uploadProgress = 0;
+    totale = 0;
+    numberOf = 0;
     isLoading = false;
+    isUploading = false;
     constructor(private _router: Router,
         private activatedRoute: ActivatedRoute,
         private auth: AuthService,
@@ -65,10 +68,17 @@ export class PhotosComponent implements OnInit {
                 .subscribe((res) => {
                     console.log(res.json());
                     var picRef = this.firebase.storage().ref().child('images/' + this.profile.id + '/' + newName);
-                    var task = picRef.put(res.json()).then((res) => {
+                    var task = picRef.put(res.json());
+                    task.then((res) => {
                         resolve(res);
                     }).catch((err) => {
                         reject(err);
+                    });
+                    task.on('state_changed', (snapshot) => {
+                        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        this.totale += progress;
+                        this.uploadProgress = this.totale / this.numberOf;
+                        console.log(this.uploadProgress);
                     });
                 });
         });
@@ -76,6 +86,11 @@ export class PhotosComponent implements OnInit {
     upload = () => {
         var pictures = this.pictures.filter(function (item) {
             return (item.checked);
+        });
+        this.numberOf = pictures.length;
+        this.pictures = this.pictures.map((item) => {
+            item.checked = false;
+            return item;
         });
         swal({
             title: 'Are you sure?',
@@ -88,34 +103,48 @@ export class PhotosComponent implements OnInit {
             confirmButtonText: 'Upload!',
             allowOutsideClick: false,
             allowEscapeKey: false,
-            preConfirm: () => {
-                return new Promise((resolve, reject) => {
-                    var promises = [];
-                    for (var i = pictures.length - 1; i >= 0; i--) {
-                        promises.push(this.uploadImage(pictures[i].images[0].source, pictures[i].id));
-                    }
-                    Promise.all(promises)
-                        .then(() => {
-                            resolve();
-                        })
-                        .catch((e) => {
-                            reject("an error has accured!!");
+        }).then(() => {
+            this.isUploading = true;
+            var promises = [];
+            for (var i = pictures.length - 1; i >= 0; i--) {
+                promises.push(this.uploadImage(pictures[i].images[0].source, pictures[i].id));
+            }
+            Promise.all(promises)
+                .then(() => {
+                    this.isUploading = false;
+                    this.totale = 0;
+                    this.uploadProgress = 0;
+                    this.numberOf = 0;
+                    swal(
+                        'Uploaded!',
+                        'Your files has been uploaded.',
+                        'success'
+                    )
+                        .catch(() => {
+
+                        });
+                })
+                .catch((e) => {
+                    swal(
+                        'Error!',
+                        'Your pictures has not been uploaded.',
+                        'error'
+                    )
+                        .catch(() => {
+
                         });
                 });
-            }
-        }).then(function () {
-            swal(
-                'Uploaded!',
-                'Your pictures has been uploaded.',
-                'success'
-            ).catch();
+
         })
-            .catch((err) => {
+            .catch(() => {
                 swal(
                     'Error!',
                     'Your pictures has not been uploaded.',
                     'error'
                 )
+                    .catch(() => {
+
+                    });
             });
     };
 }

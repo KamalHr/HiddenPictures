@@ -1,3 +1,13 @@
+.disabled {
+    color: gray;
+    cursor: not-allowed;
+    text-decoration: underline;
+    pointer-events: none;
+    
+}
+.disabled:after {
+  filter: blur(5);
+}
 ul {
   list-style-type: none;
 }

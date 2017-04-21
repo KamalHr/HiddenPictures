@@ -28,6 +28,7 @@ export class AlbumsComponent implements OnInit {
             },1000);
         })
         .catch((err) => {
+            localStorage.removeItem('token');
             console.log(err);
             this._router.navigate(['/Accounts/Login']);
         });

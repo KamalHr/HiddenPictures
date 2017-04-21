@@ -1,29 +1,34 @@
 <div *ngIf="isLoading" class="row center-align">
 	<div class="preloader-wrapper big active">
 		<div class="spinner-layer spinner-blue-only">
-				<div class="circle-clipper left">
+			<div class="circle-clipper left">
 				<div class="circle"></div>
-				</div>
-				<div class="gap-patch">
+			</div>
+			<div class="gap-patch">
 				<div class="circle"></div>
-				</div>
-				<div class="circle-clipper right">
-		    	<div class="circle"></div>
-		  	</div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
 		</div>
 	</div>
 </div>
-<div *ngIf="!isLoading" class="row center-align">
+<div *ngIf="isUploading" class="row center-align">
+	<div class="col m8 offset-m2 s8 offset-s8 progress orange lighten-3">
+		<div class="determinate orange" [style.width]="uploadProgress + '%'"></div>
+	</div>
+</div>
+<div *ngIf="!isLoading" class="row center-align" [ngClass]="{'disabled': isUploading}">
 	<ul>
 		<li *ngFor="let picture of pictures | paginate: { itemsPerPage: 8, currentPage: page }">
-			<input type="checkbox" [attr.id]="'pic' + picture.id" [(ngModel)]="picture.checked"/>
-	    	<label [attr.for]="'pic' + picture.id">
+			<input type="checkbox" [attr.id]="'pic' + picture.id" [(ngModel)]="picture.checked" />
+			<label [attr.for]="'pic' + picture.id">
 	    		<img [src]="picture.images[0].source">
 	    	</label>
 		</li>
 	</ul>
 	<div class="center-align">
-	    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+		<pagination-controls (pageChange)="page = $event"></pagination-controls>
 	</div>
 	<br />
 	<div class="row center-align">
