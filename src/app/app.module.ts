@@ -16,6 +16,8 @@ import {AuthService} from './auth.service';
 import { PhotosComponent } from './photos/photos.component';
 import { AlphabetSortPipePipe } from './alphabet-sort-pipe.pipe';
 import { NoAlbumComponent } from './no-album/no-album.component'
+import { AuthGuard } from "./can-activate.service";
+import { LoginGuard } from "./already-logged.service";
 /*******************************************
 ** Firebase Configuration from the console **
 *******************************************/
@@ -35,11 +37,13 @@ const ROUTES : Routes = [
     },
     {
         path: 'Accounts/Login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [LoginGuard]
     },
     {
         path: 'Accounts/Albums',
         component: AlbumsComponent,
+        canActivate: [AuthGuard],
         children : [
             {
                 path: '',
@@ -76,7 +80,7 @@ const ROUTES : Routes = [
     NgxPaginationModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [AuthService,FacebookService],
+  providers: [AuthService,FacebookService, AuthGuard, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

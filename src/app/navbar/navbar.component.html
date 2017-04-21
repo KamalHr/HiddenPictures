@@ -1,12 +1,12 @@
 <header>
 	<div class="navbar-fixed">
-     	<nav class="white">
+     	<nav class="blue darken-2 z-depth-2">
 		    <div class="nav-wrapper">
 		      	<a href="#" class="brand-logo center">
 		      		<img src="../../assets/img/logo.png" class="responsive-img">
 		      	</a>
 		      	<ul class="right black-text">
-			        <li *ngIf="profile">
+			        <li *ngIf="profile != null">
 			        	<a class="black-text" (click)="logOut()">Logout</a>
 			        </li>
 		      	</ul>
