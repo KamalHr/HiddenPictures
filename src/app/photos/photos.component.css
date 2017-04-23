@@ -3,10 +3,20 @@
     cursor: not-allowed;
     text-decoration: underline;
     pointer-events: none;
-    
 }
 .disabled:after {
-  filter: blur(5);
+  content: '';
+  color: gray;
+  cursor: not-allowed;
+  text-decoration: underline;
+  pointer-events: none;
+  filter: blur(5px);
+  z-index: 9999;
+  display: table;
+  clear: both;
+}
+.disabled ul li img, .disabled div {
+  filter: blur(5px);
 }
 ul {
   list-style-type: none;

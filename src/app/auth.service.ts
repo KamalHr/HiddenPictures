@@ -67,10 +67,9 @@ export class AuthService {
     };
     updateProfile = () => {
         var token = localStorage.getItem('token');
-        this.Fb.api('/me?fields=id,name,first_name,gender,picture.width(150).height(150),age_range,friends&access_token=' + token)
+        this.Fb.api('/me?fields=id,name,first_name,gender,picture.width(40).height(40),age_range,friends&access_token=' + token)
             .then((res) => {
                 this.profile = res;
-                //console.log(this.profile);
                 this.subject.next(this.profile);
             })
             .catch((err) => {
@@ -87,7 +86,7 @@ export class AuthService {
     getAlbums = () => {
         this.updateProfile();
         var token = localStorage.getItem('token');
-        return this.Fb.api('/me/albums?fields=id,cover_photo.fields(images),count,name&access_token=' + token + '&limit=15');
+        return this.Fb.api('/me/albums?fields=id,cover_photo.fields(images),count,name&access_token=' + token);
     };
     loadMore = (albumId, after, pictures) => {
         var token = localStorage.getItem('token');

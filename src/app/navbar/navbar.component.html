@@ -1,16 +1,25 @@
 <header>
 	<div class="navbar-fixed">
-     	<nav class="blue darken-2 z-depth-2">
-		    <div class="nav-wrapper">
-		      	<a href="#" class="brand-logo center">
-		      		<img src="../../assets/img/logo.png" class="responsive-img">
-		      	</a>
-		      	<ul class="right black-text">
-			        <li *ngIf="profile != null">
-			        	<a class="black-text" (click)="logOut()">Logout</a>
-			        </li>
-		      	</ul>
-		    </div>
-	  	</nav>
-  	</div>
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a href="#!">one</a></li>
+			<li><a href="#!">two</a></li>
+			<li class="divider"></li>
+			<li><a href="#!">three</a></li>
+		</ul>
+		<nav class="blue darken-2 z-depth-2">
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo center">
+					<img src="../../assets/img/logo.png" class="responsive-img">
+				</a>
+				<ul *ngIf="profile != null" class="right black-text valign-wrapper">
+					<li class="valign">
+						<a class="dropdown-button" id="drop" data-activates="dropdown1">
+							<i class="material-icons right valign">arrow_drop_down</i>
+							<span class="valign" style="font-weight: bold;">{{profile.name}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
 </header>

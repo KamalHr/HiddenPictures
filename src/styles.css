@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-.preloader-wrapper {
+.preloader-wrapper1 {
   	position: absolute;
   	top: 40%;
   	left: 50%;
@@ -19,7 +19,6 @@
     background-color: white;
 }
 .spinner_div {
-    //position: absolute;
     background-color: white;
     width: 100%;
 }

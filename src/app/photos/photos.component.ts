@@ -2,13 +2,15 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Inject } from '@angu
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../auth.service'
 import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
+import {NgxPaginationModule} from 'ngx-pagination';
 declare var swal: any;
 import 'rxjs/add/operator/toPromise';
 
 @Component({
     selector: 'app-photos',
     templateUrl: './photos.component.html',
-    styleUrls: ['./photos.component.css']
+    styleUrls: ['./photos.component.css'],
+    providers: [NgxPaginationModule]
 })
 export class PhotosComponent implements OnInit {
     albumId: any;
@@ -56,6 +58,7 @@ export class PhotosComponent implements OnInit {
         this.auth.getProfile()
             .then((res) => {
                 this.profile = res;
+                console.log(res);
             })
             .catch((err) => {
                 localStorage.removeItem('token');
@@ -66,7 +69,7 @@ export class PhotosComponent implements OnInit {
         return new Promise((resolve, reject) => {
             this.auth.getBlob(url)
                 .subscribe((res) => {
-                    console.log(res.json());
+                    // console.log(res.json());
                     var picRef = this.firebase.storage().ref().child('images/' + this.profile.id + '/' + newName);
                     var task = picRef.put(res.json());
                     task.then((res) => {
@@ -74,11 +77,13 @@ export class PhotosComponent implements OnInit {
                     }).catch((err) => {
                         reject(err);
                     });
+                    var oldProg = 0;
                     task.on('state_changed', (snapshot) => {
                         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        this.totale -= oldProg;
                         this.totale += progress;
-                        this.uploadProgress = this.totale / this.numberOf;
-                        console.log(this.uploadProgress);
+                        oldProg = progress;
+                        this.uploadProgress = Math.trunc( this.totale / this.numberOf );
                     });
                 });
         });
@@ -88,10 +93,6 @@ export class PhotosComponent implements OnInit {
             return (item.checked);
         });
         this.numberOf = pictures.length;
-        this.pictures = this.pictures.map((item) => {
-            item.checked = false;
-            return item;
-        });
         swal({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -111,6 +112,10 @@ export class PhotosComponent implements OnInit {
             }
             Promise.all(promises)
                 .then(() => {
+                    this.pictures = this.pictures.map((item) => {
+                        item.checked = false;
+                        return item;
+                    });
                     this.isUploading = false;
                     this.totale = 0;
                     this.uploadProgress = 0;

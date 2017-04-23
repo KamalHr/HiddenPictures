@@ -1,4 +1,4 @@
-<div *ngIf="isLoading" class="row center-align">
+<div *ngIf="isLoading; else Photos" class="row center-align">
 	<div class="preloader-wrapper big active">
 		<div class="spinner-layer spinner-blue-only">
 			<div class="circle-clipper left">
@@ -13,30 +13,33 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="isUploading" class="row center-align">
-	<div class="col m8 offset-m2 s8 offset-s8 progress orange lighten-3">
-		<div class="determinate orange" [style.width]="uploadProgress + '%'"></div>
+<ng-template #Photos>
+	<div *ngIf="isUploading" class="row center-align white">
+		<span class="black-text" style="z-index: 9999; position: absolute; top: 50%; font-size: 16px; font-weight: bold;">{{uploadProgress+'%'}}</span>
+		<div class="col m8 offset-m2 s8 offset-s2 progress red lighten-3" style="position: absolute; top: 50%; z-index: 999;">
+			<div class="determinate red" [style.width]="uploadProgress + '%'"></div>
+		</div>
 	</div>
-</div>
-<div *ngIf="!isLoading" class="row center-align" [ngClass]="{'disabled': isUploading}">
-	<ul>
-		<li *ngFor="let picture of pictures | paginate: { itemsPerPage: 8, currentPage: page }">
-			<input type="checkbox" [attr.id]="'pic' + picture.id" [(ngModel)]="picture.checked" />
-			<label [attr.for]="'pic' + picture.id">
-	    		<img [src]="picture.images[0].source">
-	    	</label>
-		</li>
-	</ul>
-	<div class="center-align">
-		<pagination-controls (pageChange)="page = $event"></pagination-controls>
-	</div>
-	<br />
-	<div class="row center-align">
-		<button class="waves-effect waves-black btn-flat">
-			<i class="material-icons right">delete</i>Reset
+	<div class="row center-align" [ngClass]="{'disabled': isUploading}" style="filter: blur(5);">
+		<ul>
+			<li *ngFor="let picture of pictures | paginate: { itemsPerPage: 8, currentPage: page, id: 'pics' }">
+				<input type="checkbox" [attr.id]="'pic' + picture.id" [(ngModel)]="picture.checked" />
+				<label [attr.for]="'pic' + picture.id">
+			<img [src]="picture.images[0].source">
+		</label>
+			</li>
+		</ul>
+		<div class="center-align">
+			<pagination-controls (pageChange)="page = $event" id="pics" autoHide="true"></pagination-controls>
+		</div>
+		<br />
+		<div class="row center-align">
+			<button class="waves-effect waves-black btn-flat">
+							<i class="material-icons right">delete</i>Reset
 		</button>
-		<button (click)="upload()" class="waves-effect waves-red btn-flat">
+			<button (click)="upload()" class="waves-effect waves-red btn-flat">
 			<i class="material-icons right">send</i>Send
 		</button>
+		</div>
 	</div>
-</div>
+</ng-template>
