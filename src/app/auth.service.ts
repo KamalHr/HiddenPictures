@@ -42,7 +42,6 @@ export class AuthService {
         this.subject.next(null);
         this.Fb.getLoginStatus()
             .then((res) => {
-                console.log(res);
                 if (res.status === 'connected')
                     this.Fb.logout()
                         .then((res) => {

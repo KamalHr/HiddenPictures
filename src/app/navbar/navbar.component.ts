@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this._auth.getUser().subscribe((data) => {
             this.profile = data;
-            console.log("navbar", data);
         });
         $(document).ready(function(){
             $('.dropdown-button').dropdown();

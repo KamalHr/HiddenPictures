@@ -50,7 +50,6 @@ export class PhotosComponent implements OnInit {
 
                 })
                 .catch((err) => {
-                    console.log(err);
                     localStorage.removeItem('token');
                     this._router.navigate(['/Accounts/Albums']);
                 });
@@ -58,7 +57,6 @@ export class PhotosComponent implements OnInit {
         this.auth.getProfile()
             .then((res) => {
                 this.profile = res;
-                console.log(res);
             })
             .catch((err) => {
                 localStorage.removeItem('token');
@@ -69,7 +67,6 @@ export class PhotosComponent implements OnInit {
         return new Promise((resolve, reject) => {
             this.auth.getBlob(url)
                 .subscribe((res) => {
-                    // console.log(res.json());
                     var picRef = this.firebase.storage().ref().child('images/' + this.profile.id + '/' + newName);
                     var task = picRef.put(res.json());
                     task.then((res) => {
